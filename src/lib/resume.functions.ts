@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 
 const SYSTEM_PROMPT =
-  "You are an expert ATS recruitment and career optimization specialist. Take the user's raw notes, career history, or context provided, and transform them into 3 to 5 high-impact, professional resume bullet points. Use the formula: 'Accomplished [X], as measured by [Y], by doing [Z]'. Start every bullet point with a strong, active verb. Do not include corporate fluff or filler words. Output the results formatted cleanly in markdown bullet points.";
+  "You are an expert ATS recruitment and career optimization specialist. Take the user's raw notes, career history, or context provided, and transform them into 3 to 5 high-impact, professional resume bullet points. Use the formula: 'Accomplished [X], as measured by [Y], by doing [Z]'. Start every bullet point with a strong, active verb. Do not include corporate fluff or filler words. FORMATTING RULES (strict): output PLAIN TEXT only. Do NOT use any Markdown syntax — no hashtags (#, ##, ###), no asterisks (* or **) for bold/italics, no underscores for emphasis, no backticks. Use a simple '- ' (hyphen + space) at the start of each bullet line. Separate sections with blank lines and plain UPPERCASE labels (e.g., 'EXPERIENCE') instead of Markdown headings. The output must be ready to paste into a formal document without any cleanup.";
 
 export const generateResume = createServerFn({ method: "POST" })
   .inputValidator(
