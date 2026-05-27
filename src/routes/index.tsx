@@ -397,6 +397,7 @@ function Index() {
                 subtitle="Sequenced by urgency and impact"
                 loading={loading === "plan"}
                 content={outputs.plan}
+                isHtml
                 action={
                   <Button
                     onClick={() => runGeneration("plan")}
@@ -492,17 +493,20 @@ function OutputPane({
   loading,
   content,
   action,
+  isHtml = false,
 }: {
   title: string;
   subtitle: string;
   loading: boolean;
   content?: string;
   action: React.ReactNode;
+  isHtml?: boolean;
 }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     if (!content) return;
-    await navigator.clipboard.writeText(content);
+    const plain = isHtml ? stripHtml(content) : content;
+    await navigator.clipboard.writeText(plain);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
@@ -551,9 +555,16 @@ function OutputPane({
             </div>
           </div>
         ) : content ? (
-          <pre className="whitespace-pre-wrap font-sans text-sm text-slate-200 leading-relaxed">
-            {content}
-          </pre>
+          isHtml ? (
+            <div
+              className="ai-html text-sm text-slate-200 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: sanitizePlanHtml(content) }}
+            />
+          ) : (
+            <pre className="whitespace-pre-wrap font-sans text-sm text-slate-200 leading-relaxed">
+              {content}
+            </pre>
+          )
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-center text-slate-500">
             <Sparkles className="h-8 w-8 mb-3 text-slate-700" />
@@ -564,6 +575,31 @@ function OutputPane({
       </div>
     </div>
   );
+}
+
+/* -------------------- HTML helpers for plan output -------------------- */
+
+function sanitizePlanHtml(raw: string): string {
+  // strip code fences like ```html ... ``` if model added them
+  let s = raw.trim();
+  s = s.replace(/^```(?:html)?\s*/i, "").replace(/```\s*$/i, "");
+  // allow only a safe subset of tags
+  const allowed = /^(h2|h3|p|ul|ol|li|table|thead|tbody|tr|th|td|strong|em|br)$/i;
+  s = s.replace(/<\/?([a-zA-Z0-9]+)(\s[^>]*)?>/g, (m, tag) =>
+    allowed.test(tag) ? `<${m.startsWith("</") ? "/" : ""}${tag.toLowerCase()}>` : "",
+  );
+  return s;
+}
+
+function stripHtml(html: string): string {
+  const cleaned = sanitizePlanHtml(html);
+  return cleaned
+    .replace(/<\/(h2|h3|p|li|tr)>/gi, "\n")
+    .replace(/<\/(td|th)>/gi, "\t")
+    .replace(/<br\s*\/?>(?!\n)/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }
 
 /* -------------------- Mock generators (deterministic, on-device) -------------------- */
