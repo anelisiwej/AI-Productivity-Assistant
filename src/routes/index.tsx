@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { generateResume } from "@/lib/resume.functions";
 import { generateEmail } from "@/lib/email.functions";
+import { generatePlan } from "@/lib/plan.functions";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -81,6 +82,7 @@ function Index() {
 
   const callGenerateResume = useServerFn(generateResume);
   const callGenerateEmail = useServerFn(generateEmail);
+  const callGeneratePlan = useServerFn(generatePlan);
 
   async function runGeneration(kind: "resume" | "email" | "plan") {
     setLoading(kind);
@@ -109,8 +111,17 @@ function Index() {
         });
         result = res.content || "No content returned.";
       } else {
-        await new Promise((r) => setTimeout(r, 1400));
-        result = buildPlan(form);
+        const res = await callGeneratePlan({
+          data: {
+            notes: form.notes,
+            tasks: form.tasks,
+            target: form.target,
+            tone: form.tone,
+            name: form.name,
+            track: form.track,
+          },
+        });
+        result = res.content || "No content returned.";
       }
       setOutputs((o) => ({ ...o, [kind]: result }));
     } catch (e) {
