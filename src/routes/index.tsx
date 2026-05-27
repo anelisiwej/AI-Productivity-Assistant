@@ -82,6 +82,7 @@ function Index() {
 
   const callGenerateResume = useServerFn(generateResume);
   const callGenerateEmail = useServerFn(generateEmail);
+  const callGeneratePlan = useServerFn(generatePlan);
 
   async function runGeneration(kind: "resume" | "email" | "plan") {
     setLoading(kind);
