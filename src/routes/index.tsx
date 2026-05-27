@@ -111,8 +111,17 @@ function Index() {
         });
         result = res.content || "No content returned.";
       } else {
-        await new Promise((r) => setTimeout(r, 1400));
-        result = buildPlan(form);
+        const res = await callGeneratePlan({
+          data: {
+            notes: form.notes,
+            tasks: form.tasks,
+            target: form.target,
+            tone: form.tone,
+            name: form.name,
+            track: form.track,
+          },
+        });
+        result = res.content || "No content returned.";
       }
       setOutputs((o) => ({ ...o, [kind]: result }));
     } catch (e) {
