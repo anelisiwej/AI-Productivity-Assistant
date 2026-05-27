@@ -80,6 +80,7 @@ function Index() {
     setForm((f) => ({ ...f, [k]: v }));
 
   const callGenerateResume = useServerFn(generateResume);
+  const callGenerateEmail = useServerFn(generateEmail);
 
   async function runGeneration(kind: "resume" | "email" | "plan") {
     setLoading(kind);
