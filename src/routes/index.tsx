@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { generateResume } from "@/lib/resume.functions";
 import { generateEmail } from "@/lib/email.functions";
+import { generatePlan } from "@/lib/plan.functions";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
