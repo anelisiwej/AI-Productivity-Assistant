@@ -555,9 +555,16 @@ function OutputPane({
             </div>
           </div>
         ) : content ? (
-          <pre className="whitespace-pre-wrap font-sans text-sm text-slate-200 leading-relaxed">
-            {content}
-          </pre>
+          isHtml ? (
+            <div
+              className="ai-html text-sm text-slate-200 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: sanitizePlanHtml(content) }}
+            />
+          ) : (
+            <pre className="whitespace-pre-wrap font-sans text-sm text-slate-200 leading-relaxed">
+              {content}
+            </pre>
+          )
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-center text-slate-500">
             <Sparkles className="h-8 w-8 mb-3 text-slate-700" />
