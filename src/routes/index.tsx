@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { generateResume } from "@/lib/resume.functions";
+import { generateEmail } from "@/lib/email.functions";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -79,6 +80,7 @@ function Index() {
     setForm((f) => ({ ...f, [k]: v }));
 
   const callGenerateResume = useServerFn(generateResume);
+  const callGenerateEmail = useServerFn(generateEmail);
 
   async function runGeneration(kind: "resume" | "email" | "plan") {
     setLoading(kind);
@@ -96,8 +98,16 @@ function Index() {
         });
         result = res.content || "No content returned.";
       } else if (kind === "email") {
-        await new Promise((r) => setTimeout(r, 1400));
-        result = buildEmail(form);
+        const res = await callGenerateEmail({
+          data: {
+            notes: form.notes,
+            target: form.target,
+            tone: form.tone,
+            name: form.name,
+            track: form.track,
+          },
+        });
+        result = res.content || "No content returned.";
       } else {
         await new Promise((r) => setTimeout(r, 1400));
         result = buildPlan(form);
