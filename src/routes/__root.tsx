@@ -74,14 +74,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "AI Productivity Assistant" },
+      { name: "description", content: "AI-Productivity-Assistant helps job seekers and professionals create resumes, draft emails, and plan tasks." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "AI Productivity Assistant" },
+      { property: "og:description", content: "AI-Productivity-Assistant helps job seekers and professionals create resumes, draft emails, and plan tasks." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "AI Productivity Assistant" },
+      { name: "twitter:description", content: "AI-Productivity-Assistant helps job seekers and professionals create resumes, draft emails, and plan tasks." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c70a6ec7-1f86-46ba-b408-369e30c85cb5/id-preview-e5e8dd30--8f2d20b1-9946-4232-a055-283c29566c50.lovable.app-1779875631997.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c70a6ec7-1f86-46ba-b408-369e30c85cb5/id-preview-e5e8dd30--8f2d20b1-9946-4232-a055-283c29566c50.lovable.app-1779875631997.png" },
     ],
     links: [
       {
