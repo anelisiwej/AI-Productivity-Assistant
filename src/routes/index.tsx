@@ -397,6 +397,7 @@ function Index() {
                 subtitle="Sequenced by urgency and impact"
                 loading={loading === "plan"}
                 content={outputs.plan}
+                isHtml
                 action={
                   <Button
                     onClick={() => runGeneration("plan")}
@@ -492,17 +493,20 @@ function OutputPane({
   loading,
   content,
   action,
+  isHtml = false,
 }: {
   title: string;
   subtitle: string;
   loading: boolean;
   content?: string;
   action: React.ReactNode;
+  isHtml?: boolean;
 }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     if (!content) return;
-    await navigator.clipboard.writeText(content);
+    const plain = isHtml ? stripHtml(content) : content;
+    await navigator.clipboard.writeText(plain);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
