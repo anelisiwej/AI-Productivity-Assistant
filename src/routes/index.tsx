@@ -78,18 +78,37 @@ function Index() {
   const update = <K extends keyof FormState>(k: K, v: FormState[K]) =>
     setForm((f) => ({ ...f, [k]: v }));
 
+  const callGenerateResume = useServerFn(generateResume);
+
   async function runGeneration(kind: "resume" | "email" | "plan") {
     setLoading(kind);
     setActiveTab(kind);
-    await new Promise((r) => setTimeout(r, 1400));
-    const result =
-      kind === "resume"
-        ? buildResume(form)
-        : kind === "email"
-        ? buildEmail(form)
-        : buildPlan(form);
-    setOutputs((o) => ({ ...o, [kind]: result }));
-    setLoading(null);
+    try {
+      let result: string;
+      if (kind === "resume") {
+        const res = await callGenerateResume({
+          data: {
+            notes: form.notes,
+            target: form.target,
+            tone: form.tone,
+            name: form.name,
+          },
+        });
+        result = res.content || "No content returned.";
+      } else if (kind === "email") {
+        await new Promise((r) => setTimeout(r, 1400));
+        result = buildEmail(form);
+      } else {
+        await new Promise((r) => setTimeout(r, 1400));
+        result = buildPlan(form);
+      }
+      setOutputs((o) => ({ ...o, [kind]: result }));
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Generation failed";
+      toast.error(msg);
+    } finally {
+      setLoading(null);
+    }
   }
 
   async function generateAll() {
