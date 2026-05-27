@@ -577,6 +577,31 @@ function OutputPane({
   );
 }
 
+/* -------------------- HTML helpers for plan output -------------------- */
+
+function sanitizePlanHtml(raw: string): string {
+  // strip code fences like ```html ... ``` if model added them
+  let s = raw.trim();
+  s = s.replace(/^```(?:html)?\s*/i, "").replace(/```\s*$/i, "");
+  // allow only a safe subset of tags
+  const allowed = /^(h2|h3|p|ul|ol|li|table|thead|tbody|tr|th|td|strong|em|br)$/i;
+  s = s.replace(/<\/?([a-zA-Z0-9]+)(\s[^>]*)?>/g, (m, tag) =>
+    allowed.test(tag) ? `<${m.startsWith("</") ? "/" : ""}${tag.toLowerCase()}>` : "",
+  );
+  return s;
+}
+
+function stripHtml(html: string): string {
+  const cleaned = sanitizePlanHtml(html);
+  return cleaned
+    .replace(/<\/(h2|h3|p|li|tr)>/gi, "\n")
+    .replace(/<\/(td|th)>/gi, "\t")
+    .replace(/<br\s*\/?>(?!\n)/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 /* -------------------- Mock generators (deterministic, on-device) -------------------- */
 
 const toneOpening: Record<Tone, string> = {
