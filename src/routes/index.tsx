@@ -31,7 +31,10 @@ import {
   ChevronLeft,
   Copy,
   Check,
+  Printer,
+  Calendar,
 } from "lucide-react";
+import { downloadScheduleIcs, printElementById } from "@/lib/schedule-export";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -411,23 +414,65 @@ function Index() {
 
             {hasTasks && (
               <TabsContent value="plan" className="flex-1 mt-5">
-                <OutputPane
-                  title="Prioritized Weekly Schedule"
-                  subtitle="Sequenced by urgency and impact"
-                  loading={loading === "plan"}
-                  content={outputs.plan}
-                  isHtml
-                  action={
-                    <Button
-                      onClick={() => runGeneration("plan")}
-                      disabled={loading !== null}
-                      size="sm"
-                      className="bg-blue-500 hover:bg-blue-600"
-                    >
-                      <Sparkles className="h-4 w-4 mr-2" /> Generate
-                    </Button>
-                  }
-                />
+                <div id="print-schedule">
+                  <OutputPane
+                    title="Prioritized Weekly Schedule"
+                    subtitle="Sequenced by urgency and impact"
+                    loading={loading === "plan"}
+                    content={outputs.plan}
+                    isHtml
+                    action={
+                      <Button
+                        onClick={() => runGeneration("plan")}
+                        disabled={loading !== null}
+                        size="sm"
+                        className="bg-blue-500 hover:bg-blue-600"
+                      >
+                        <Sparkles className="h-4 w-4 mr-2" /> Generate
+                      </Button>
+                    }
+                  />
+                  {outputs.plan && loading !== "plan" && (
+                    <div className="no-print mt-4 flex flex-wrap items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/40 px-4 py-3">
+                      <span className="text-xs uppercase tracking-wider text-slate-500 mr-2">
+                        Export
+                      </span>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => printElementById("print-schedule")}
+                        className="bg-slate-950/60 border-slate-800 text-slate-200 hover:bg-slate-800 hover:text-white"
+                      >
+                        <Printer className="h-4 w-4 mr-1.5" />
+                        Print / Save PDF
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          try {
+                            const count = downloadScheduleIcs(outputs.plan ?? "");
+                            if (count === 0) {
+                              toast.error(
+                                "No schedulable rows found in the plan.",
+                              );
+                            } else {
+                              toast.success(
+                                `Exported ${count} event${count === 1 ? "" : "s"} to CareerMate_Schedule.ics`,
+                              );
+                            }
+                          } catch {
+                            toast.error("Failed to build calendar file.");
+                          }
+                        }}
+                        className="bg-slate-950/60 border-slate-800 text-slate-200 hover:bg-slate-800 hover:text-white"
+                      >
+                        <Calendar className="h-4 w-4 mr-1.5" />
+                        Export to Calendar (.ics)
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </TabsContent>
             )}
           </Tabs>

@@ -184,3 +184,46 @@
 }
 .ai-html tbody tr:last-child td { border-bottom: none; }
 .ai-html tbody tr:hover { background: rgb(30 41 59 / 0.3); }
+
+/* Print: when [data-print-target] is set on <html>, hide everything except
+   the matching element so the user only prints the schedule card. */
+@media print {
+  html[data-print-target] body * { visibility: hidden !important; }
+  html[data-print-target="print-schedule"] #print-schedule,
+  html[data-print-target="print-schedule"] #print-schedule * {
+    visibility: visible !important;
+  }
+  html[data-print-target="print-schedule"] #print-schedule {
+    position: absolute !important;
+    inset: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    color: black !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  html[data-print-target="print-schedule"] #print-schedule .no-print {
+    display: none !important;
+  }
+  html[data-print-target="print-schedule"] #print-schedule .ai-html h2,
+  html[data-print-target="print-schedule"] #print-schedule .ai-html p,
+  html[data-print-target="print-schedule"] #print-schedule .ai-html li,
+  html[data-print-target="print-schedule"] #print-schedule .ai-html td,
+  html[data-print-target="print-schedule"] #print-schedule .ai-html th,
+  html[data-print-target="print-schedule"] #print-schedule h3 {
+    color: black !important;
+  }
+  html[data-print-target="print-schedule"] #print-schedule .ai-html table {
+    background: white !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+  html[data-print-target="print-schedule"] #print-schedule .ai-html thead {
+    background: #f1f5f9 !important;
+  }
+  html[data-print-target="print-schedule"] #print-schedule .ai-html th,
+  html[data-print-target="print-schedule"] #print-schedule .ai-html td {
+    border-bottom: 1px solid #e2e8f0 !important;
+  }
+  @page { size: A4; margin: 1.5cm; }
+}
