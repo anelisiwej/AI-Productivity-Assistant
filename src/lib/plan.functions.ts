@@ -48,6 +48,13 @@ export const generatePlan = createServerFn({ method: "POST" })
     }) => data,
   )
   .handler(async ({ data }) => {
+    if (!data.tasks || data.tasks.trim().length === 0) {
+      return {
+        content:
+          "<p>No tasks were provided, so no weekly schedule was generated. Add tasks in the input panel to produce a Prioritized Weekly Schedule, Eisenhower Matrix, and Time Optimization Tips.</p>",
+      };
+    }
+
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("LOVABLE_API_KEY is not configured");
 

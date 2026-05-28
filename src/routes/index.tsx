@@ -134,11 +134,16 @@ function Index() {
 
   async function generateAll() {
     setActiveTab("resume");
-    for (const k of ["resume", "email", "plan"] as const) {
+    const hasTasks = form.tasks.trim().length > 0;
+    const kinds = hasTasks
+      ? (["resume", "email", "plan"] as const)
+      : (["resume", "email"] as const);
+    for (const k of kinds) {
       await runGeneration(k);
     }
   }
 
+  const hasTasks = form.tasks.trim().length > 0;
   const canNext1 = !!form.track;
   const canNext2 = form.notes.trim().length > 5;
 
@@ -153,7 +158,7 @@ function Index() {
             </div>
             <div>
               <h1 className="text-base font-semibold tracking-tight">
-                Workplace & Career AI Suite
+                CareerMate AI
               </h1>
               <p className="text-xs text-slate-400">
                 Resume · Communication · Planning
@@ -336,17 +341,27 @@ function Index() {
 
         {/* RIGHT PANEL */}
         <Card className="bg-slate-900/60 border-slate-800 p-6 min-h-[600px] flex flex-col">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
-            <TabsList className="bg-slate-950/60 border border-slate-800 p-1 grid grid-cols-3 w-full">
+          <Tabs
+            value={!hasTasks && activeTab === "plan" ? "resume" : activeTab}
+            onValueChange={setActiveTab}
+            className="flex-1 flex flex-col"
+          >
+            <TabsList
+              className={`bg-slate-950/60 border border-slate-800 p-1 grid w-full ${
+                hasTasks ? "grid-cols-3" : "grid-cols-2"
+              }`}
+            >
               <TabTrigger value="resume" icon={<FileText className="h-4 w-4" />}>
                 Resume Builder
               </TabTrigger>
               <TabTrigger value="email" icon={<Mail className="h-4 w-4" />}>
                 Email / Cover Letter
               </TabTrigger>
-              <TabTrigger value="plan" icon={<CalendarClock className="h-4 w-4" />}>
-                Task Planner
-              </TabTrigger>
+              {hasTasks && (
+                <TabTrigger value="plan" icon={<CalendarClock className="h-4 w-4" />}>
+                  Task Planner
+                </TabTrigger>
+              )}
             </TabsList>
 
             <TabsContent value="resume" className="flex-1 mt-5">
@@ -391,25 +406,27 @@ function Index() {
               />
             </TabsContent>
 
-            <TabsContent value="plan" className="flex-1 mt-5">
-              <OutputPane
-                title="Prioritized Weekly Schedule"
-                subtitle="Sequenced by urgency and impact"
-                loading={loading === "plan"}
-                content={outputs.plan}
-                isHtml
-                action={
-                  <Button
-                    onClick={() => runGeneration("plan")}
-                    disabled={loading !== null}
-                    size="sm"
-                    className="bg-blue-500 hover:bg-blue-600"
-                  >
-                    <Sparkles className="h-4 w-4 mr-2" /> Generate
-                  </Button>
-                }
-              />
-            </TabsContent>
+            {hasTasks && (
+              <TabsContent value="plan" className="flex-1 mt-5">
+                <OutputPane
+                  title="Prioritized Weekly Schedule"
+                  subtitle="Sequenced by urgency and impact"
+                  loading={loading === "plan"}
+                  content={outputs.plan}
+                  isHtml
+                  action={
+                    <Button
+                      onClick={() => runGeneration("plan")}
+                      disabled={loading !== null}
+                      size="sm"
+                      className="bg-blue-500 hover:bg-blue-600"
+                    >
+                      <Sparkles className="h-4 w-4 mr-2" /> Generate
+                    </Button>
+                  }
+                />
+              </TabsContent>
+            )}
           </Tabs>
 
           {/* Disclaimer */}
