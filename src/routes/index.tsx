@@ -134,11 +134,16 @@ function Index() {
 
   async function generateAll() {
     setActiveTab("resume");
-    for (const k of ["resume", "email", "plan"] as const) {
+    const hasTasks = form.tasks.trim().length > 0;
+    const kinds = hasTasks
+      ? (["resume", "email", "plan"] as const)
+      : (["resume", "email"] as const);
+    for (const k of kinds) {
       await runGeneration(k);
     }
   }
 
+  const hasTasks = form.tasks.trim().length > 0;
   const canNext1 = !!form.track;
   const canNext2 = form.notes.trim().length > 5;
 
