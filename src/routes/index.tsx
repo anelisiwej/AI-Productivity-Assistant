@@ -406,25 +406,27 @@ function Index() {
               />
             </TabsContent>
 
-            <TabsContent value="plan" className="flex-1 mt-5">
-              <OutputPane
-                title="Prioritized Weekly Schedule"
-                subtitle="Sequenced by urgency and impact"
-                loading={loading === "plan"}
-                content={outputs.plan}
-                isHtml
-                action={
-                  <Button
-                    onClick={() => runGeneration("plan")}
-                    disabled={loading !== null}
-                    size="sm"
-                    className="bg-blue-500 hover:bg-blue-600"
-                  >
-                    <Sparkles className="h-4 w-4 mr-2" /> Generate
-                  </Button>
-                }
-              />
-            </TabsContent>
+            {hasTasks && (
+              <TabsContent value="plan" className="flex-1 mt-5">
+                <OutputPane
+                  title="Prioritized Weekly Schedule"
+                  subtitle="Sequenced by urgency and impact"
+                  loading={loading === "plan"}
+                  content={outputs.plan}
+                  isHtml
+                  action={
+                    <Button
+                      onClick={() => runGeneration("plan")}
+                      disabled={loading !== null}
+                      size="sm"
+                      className="bg-blue-500 hover:bg-blue-600"
+                    >
+                      <Sparkles className="h-4 w-4 mr-2" /> Generate
+                    </Button>
+                  }
+                />
+              </TabsContent>
+            )}
           </Tabs>
 
           {/* Disclaimer */}
