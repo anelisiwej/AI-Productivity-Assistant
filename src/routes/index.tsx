@@ -341,17 +341,27 @@ function Index() {
 
         {/* RIGHT PANEL */}
         <Card className="bg-slate-900/60 border-slate-800 p-6 min-h-[600px] flex flex-col">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
-            <TabsList className="bg-slate-950/60 border border-slate-800 p-1 grid grid-cols-3 w-full">
+          <Tabs
+            value={!hasTasks && activeTab === "plan" ? "resume" : activeTab}
+            onValueChange={setActiveTab}
+            className="flex-1 flex flex-col"
+          >
+            <TabsList
+              className={`bg-slate-950/60 border border-slate-800 p-1 grid w-full ${
+                hasTasks ? "grid-cols-3" : "grid-cols-2"
+              }`}
+            >
               <TabTrigger value="resume" icon={<FileText className="h-4 w-4" />}>
                 Resume Builder
               </TabTrigger>
               <TabTrigger value="email" icon={<Mail className="h-4 w-4" />}>
                 Email / Cover Letter
               </TabTrigger>
-              <TabTrigger value="plan" icon={<CalendarClock className="h-4 w-4" />}>
-                Task Planner
-              </TabTrigger>
+              {hasTasks && (
+                <TabTrigger value="plan" icon={<CalendarClock className="h-4 w-4" />}>
+                  Task Planner
+                </TabTrigger>
+              )}
             </TabsList>
 
             <TabsContent value="resume" className="flex-1 mt-5">
