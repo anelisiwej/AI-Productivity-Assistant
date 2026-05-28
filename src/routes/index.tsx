@@ -252,7 +252,7 @@ function Index() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="tasks" className="text-slate-300">
-                  This week's tasks (one per line)
+                  This week's tasks (Optional - one per line)
                 </Label>
                 <Textarea
                   id="tasks"
@@ -262,6 +262,9 @@ function Index() {
                   onChange={(e) => update("tasks", e.target.value)}
                   className="bg-slate-950/60 border-slate-800 text-slate-100 resize-none"
                 />
+                <p className="text-xs text-slate-500">
+                  💡 Tip: If you don't have tasks this week, skip this field! CareerMate AI will automatically customize your dashboard to focus entirely on your professional profile and job applications.
+                </p>
               </div>
             </div>
           )}
