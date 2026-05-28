@@ -31,7 +31,10 @@ import {
   ChevronLeft,
   Copy,
   Check,
+  Printer,
+  Calendar,
 } from "lucide-react";
+import { downloadScheduleIcs, printElementById } from "@/lib/schedule-export";
 
 export const Route = createFileRoute("/")({
   component: Index,
