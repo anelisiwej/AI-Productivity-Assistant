@@ -153,7 +153,7 @@ function Index() {
             </div>
             <div>
               <h1 className="text-base font-semibold tracking-tight">
-                Workplace & Career AI Suite
+                CareerMate AI
               </h1>
               <p className="text-xs text-slate-400">
                 Resume · Communication · Planning
