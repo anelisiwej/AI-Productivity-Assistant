@@ -544,7 +544,9 @@ function Index() {
           </Tabs>
 
           {/* Disclaimer */}
-          <div className="mt-6 pt-6 border-t border-slate-800/80 rounded-lg border-x border-b border-amber-500/30 bg-amber-500/5 p-4 flex gap-3">
+          <div className="mt-6 pt-6 border-t border-slate-800" />
+          <div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 flex gap-3">
+
             <AlertTriangle className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" />
             <div className="text-sm">
               <p className="font-semibold text-amber-300 mb-1">
