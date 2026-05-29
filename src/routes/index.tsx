@@ -583,7 +583,7 @@ function OutputPane({
           <h3 className="text-base font-semibold text-slate-100">{title}</h3>
           <p className="text-xs text-slate-400">{subtitle}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 no-print print:hidden">
           {content && !loading && (
             <Button
               size="sm"
