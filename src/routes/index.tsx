@@ -33,8 +33,13 @@ import {
   Check,
   Printer,
   Calendar,
+  Download,
 } from "lucide-react";
 import { downloadScheduleIcs, printElementById } from "@/lib/schedule-export";
+import {
+  downloadCoverLetterDocx,
+  downloadCoverLetterPdf,
+} from "@/lib/cover-letter-export";
 
 export const Route = createFileRoute("/")({
   component: Index,
