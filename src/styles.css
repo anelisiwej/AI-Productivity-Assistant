@@ -203,8 +203,22 @@
     border: none !important;
     box-shadow: none !important;
   }
-  html[data-print-target="print-schedule"] #print-schedule .no-print {
+  html[data-print-target="print-schedule"] #print-schedule .no-print,
+  html[data-print-target="print-schedule"] #print-schedule .print\:hidden {
     display: none !important;
+    visibility: hidden !important;
+  }
+  /* Neutralize the dark dashboard card chrome so the table fills A4 cleanly */
+  html[data-print-target="print-schedule"] #print-schedule > div,
+  html[data-print-target="print-schedule"] #print-schedule > div > div {
+    background: white !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   html[data-print-target="print-schedule"] #print-schedule .ai-html h2,
   html[data-print-target="print-schedule"] #print-schedule .ai-html p,
