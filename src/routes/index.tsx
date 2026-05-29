@@ -415,6 +415,61 @@ function Index() {
                   </Button>
                 }
               />
+              {outputs.email && loading !== "email" && (
+                <div className="mt-4 flex flex-wrap items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/40 px-4 py-3">
+                  <span className="text-xs uppercase tracking-wider text-slate-500 mr-2">
+                    Export
+                  </span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard.writeText(outputs.email ?? "");
+                        toast.success("Copied!");
+                      } catch {
+                        toast.error("Failed to copy to clipboard.");
+                      }
+                    }}
+                    className="bg-slate-950/60 border-slate-800 text-slate-200 hover:bg-slate-800 hover:text-white"
+                  >
+                    <Copy className="h-4 w-4 mr-1.5" />
+                    Copy Text
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={async () => {
+                      try {
+                        await downloadCoverLetterDocx(outputs.email ?? "");
+                        toast.success("Downloaded CareerMate_Cover_Letter.docx");
+                      } catch {
+                        toast.error("Failed to build Word document.");
+                      }
+                    }}
+                    className="bg-slate-950/60 border-slate-800 text-slate-200 hover:bg-slate-800 hover:text-white"
+                  >
+                    <FileText className="h-4 w-4 mr-1.5" />
+                    Export Word (.docx)
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      try {
+                        downloadCoverLetterPdf(outputs.email ?? "");
+                        toast.success("Downloaded CareerMate_Cover_Letter.pdf");
+                      } catch {
+                        toast.error("Failed to build PDF.");
+                      }
+                    }}
+                    className="bg-slate-950/60 border-slate-800 text-slate-200 hover:bg-slate-800 hover:text-white"
+                  >
+                    <Download className="h-4 w-4 mr-1.5" />
+                    Download PDF
+                  </Button>
+                </div>
+              )}
             </TabsContent>
 
             {hasTasks && (
