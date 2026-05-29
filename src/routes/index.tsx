@@ -476,27 +476,29 @@ function Index() {
 
 
             {hasTasks && (
-              <TabsContent value="plan" className="flex-1 mt-5">
-                <div id="print-schedule">
-                  <OutputPane
-                    title="Prioritized Weekly Schedule"
-                    subtitle="Sequenced by urgency and impact"
-                    loading={loading === "plan"}
-                    content={outputs.plan}
-                    isHtml
-                    action={
-                      <Button
-                        onClick={() => runGeneration("plan")}
-                        disabled={loading !== null}
-                        size="sm"
-                        className="bg-blue-500 hover:bg-blue-600"
-                      >
-                        <Sparkles className="h-4 w-4 mr-2" /> Generate
-                      </Button>
-                    }
-                  />
+              <TabsContent value="plan" className="flex-1 mt-5 flex flex-col gap-4 min-h-0">
+                <div id="print-schedule" className="flex-1 min-h-0 flex flex-col gap-4">
+                  <div className="flex-1 min-h-0">
+                    <OutputPane
+                      title="Prioritized Weekly Schedule"
+                      subtitle="Sequenced by urgency and impact"
+                      loading={loading === "plan"}
+                      content={outputs.plan}
+                      isHtml
+                      action={
+                        <Button
+                          onClick={() => runGeneration("plan")}
+                          disabled={loading !== null}
+                          size="sm"
+                          className="bg-blue-500 hover:bg-blue-600"
+                        >
+                          <Sparkles className="h-4 w-4 mr-2" /> Generate
+                        </Button>
+                      }
+                    />
+                  </div>
                   {outputs.plan && loading !== "plan" && (
-                    <div className="no-print mt-4 flex flex-wrap items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/40 px-4 py-3">
+                    <div className="no-print shrink-0 flex flex-wrap items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/40 px-4 py-3">
                       <span className="text-xs uppercase tracking-wider text-slate-500 mr-2">
                         Export
                       </span>
@@ -537,6 +539,7 @@ function Index() {
                   )}
                 </div>
               </TabsContent>
+
             )}
           </Tabs>
 
