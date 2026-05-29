@@ -394,29 +394,31 @@ function Index() {
               />
             </TabsContent>
 
-            <TabsContent value="email" className="flex-1 mt-5">
-              <OutputPane
-                title={
-                  form.track === "job-seeker"
-                    ? "Cover Letter Draft"
-                    : "Professional Email Draft"
-                }
-                subtitle={`Tone: ${form.tone}`}
-                loading={loading === "email"}
-                content={outputs.email}
-                action={
-                  <Button
-                    onClick={() => runGeneration("email")}
-                    disabled={loading !== null || !canNext2}
-                    size="sm"
-                    className="bg-blue-500 hover:bg-blue-600"
-                  >
-                    <Sparkles className="h-4 w-4 mr-2" /> Generate
-                  </Button>
-                }
-              />
+            <TabsContent value="email" className="flex-1 mt-5 flex flex-col gap-4 min-h-0">
+              <div className="flex-1 min-h-0">
+                <OutputPane
+                  title={
+                    form.track === "job-seeker"
+                      ? "Cover Letter Draft"
+                      : "Professional Email Draft"
+                  }
+                  subtitle={`Tone: ${form.tone}`}
+                  loading={loading === "email"}
+                  content={outputs.email}
+                  action={
+                    <Button
+                      onClick={() => runGeneration("email")}
+                      disabled={loading !== null || !canNext2}
+                      size="sm"
+                      className="bg-blue-500 hover:bg-blue-600"
+                    >
+                      <Sparkles className="h-4 w-4 mr-2" /> Generate
+                    </Button>
+                  }
+                />
+              </div>
               {outputs.email && loading !== "email" && (
-                <div className="mt-4 flex flex-wrap items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/40 px-4 py-3">
+                <div className="shrink-0 flex flex-wrap items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/40 px-4 py-3">
                   <span className="text-xs uppercase tracking-wider text-slate-500 mr-2">
                     Export
                   </span>
@@ -471,6 +473,7 @@ function Index() {
                 </div>
               )}
             </TabsContent>
+
 
             {hasTasks && (
               <TabsContent value="plan" className="flex-1 mt-5">
