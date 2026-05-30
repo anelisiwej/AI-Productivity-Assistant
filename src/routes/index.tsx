@@ -597,6 +597,53 @@ function TrackCard({
   );
 }
 
+function ScheduleMobileCards({ html }: { html: string }) {
+  const rows: ScheduleRow[] = parseScheduleRows(html);
+  if (rows.length === 0) return null;
+  const catStyle = (c: string): string => {
+    const v = c.toLowerCase();
+    if (v.includes("urgent") && v.includes("important"))
+      return "bg-rose-500/15 text-rose-300 border-rose-500/30";
+    if (v.includes("urgent"))
+      return "bg-amber-500/15 text-amber-300 border-amber-500/30";
+    if (v.includes("important"))
+      return "bg-blue-500/15 text-blue-300 border-blue-500/30";
+    return "bg-slate-700/30 text-slate-300 border-slate-600/40";
+  };
+  return (
+    <div className="md:hidden print:hidden w-full max-w-full flex flex-col gap-3">
+      {rows.map((r, i) => (
+        <div
+          key={i}
+          className="w-full max-w-full rounded-lg border border-slate-800 bg-slate-950/60 p-4 break-words"
+        >
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="text-sm font-semibold text-slate-100">{r.day}</div>
+            <div className="text-sm font-semibold text-slate-300">{r.timeBlock}</div>
+          </div>
+          {r.category && (
+            <span
+              className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-medium mb-2 ${catStyle(r.category)}`}
+            >
+              {r.category}
+            </span>
+          )}
+          {r.task && (
+            <p className="text-sm text-slate-100 leading-relaxed break-words whitespace-normal">
+              {r.task}
+            </p>
+          )}
+          {r.notes && (
+            <p className="mt-1.5 text-xs text-slate-400 leading-relaxed break-words whitespace-normal">
+              {r.notes}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function TabTrigger({
   value,
   icon,
