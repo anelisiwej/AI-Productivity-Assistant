@@ -35,7 +35,7 @@ import {
   Calendar,
   Download,
 } from "lucide-react";
-import { downloadScheduleIcs, printElementById } from "@/lib/schedule-export";
+import { downloadScheduleIcs, printElementById, parseScheduleRows, type ScheduleRow } from "@/lib/schedule-export";
 import {
   downloadCoverLetterDocx,
   downloadCoverLetterPdf,
