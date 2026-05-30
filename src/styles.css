@@ -157,6 +157,8 @@
 .ai-html li { margin: 0.2rem 0; }
 .ai-html table {
   width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   margin: 0.5rem 0 1rem;
   font-size: 0.8rem;
@@ -164,6 +166,8 @@
   border: 1px solid rgb(30 41 59);
   border-radius: 0.5rem;
   overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 .ai-html thead { background: rgb(30 41 59 / 0.6); }
 .ai-html th {
