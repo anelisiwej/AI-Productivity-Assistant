@@ -192,6 +192,13 @@
 .ai-html tbody tr:last-child td { border-bottom: none; }
 .ai-html tbody tr:hover { background: rgb(30 41 59 / 0.3); }
 
+/* On narrow viewports, hide the AI-generated schedule table; the React
+   ScheduleMobileCards component renders a card list instead. The print
+   stylesheet below force-shows the table again for clean A4 output. */
+@media screen and (max-width: 767px) {
+  .ai-html table { display: none !important; }
+}
+
 /* Print: when [data-print-target] is set on <html>, hide everything except
    the matching element so the user only prints the schedule card. */
 @media print {
