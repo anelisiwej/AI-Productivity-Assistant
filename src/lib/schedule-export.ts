@@ -30,7 +30,7 @@ function stripTags(html: string): string {
   return decodeEntities(html.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
 }
 
-function parseScheduleRows(html: string): ScheduleRow[] {
+export function parseScheduleRows(html: string): ScheduleRow[] {
   // Grab the first <table>...</table> — that's the Prioritized Weekly Schedule
   const tableMatch = html.match(/<table[\s\S]*?<\/table>/i);
   if (!tableMatch) return [];
