@@ -498,10 +498,10 @@ function Index() {
                     />
                   </div>
                   {outputs.plan && loading !== "plan" && (
-                    <div className="no-print shrink-0 flex flex-wrap items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/40 px-4 py-3">
-                      <span className="text-xs uppercase tracking-wider text-slate-500 mr-2">
-                        Export
-                      </span>
+                    <ScheduleMobileCards html={outputs.plan} />
+                  )}
+                  {outputs.plan && loading !== "plan" && (
+                    <div className="no-print print:hidden shrink-0 flex flex-wrap items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/40 px-4 py-3">
                       <Button
                         size="sm"
                         variant="outline"
