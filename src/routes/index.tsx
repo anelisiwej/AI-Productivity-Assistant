@@ -476,9 +476,9 @@ function Index() {
 
 
             {hasTasks && (
-              <TabsContent value="plan" className="flex-1 mt-5 flex flex-col gap-4 min-h-0">
-                <div id="print-schedule" className="flex-1 min-h-0 flex flex-col gap-4">
-                  <div className="flex-1 min-h-0">
+              <TabsContent value="plan" className="flex-1 mt-5 flex flex-col gap-4 min-h-0 min-w-0 max-w-full overflow-hidden">
+                <div id="print-schedule" className="flex-1 min-h-0 min-w-0 max-w-full flex flex-col gap-4">
+                  <div className="flex-1 min-h-0 min-w-0 max-w-full">
                     <OutputPane
                       title="Prioritized Weekly Schedule"
                       subtitle="Sequenced by urgency and impact"
