@@ -8,7 +8,7 @@ const DAY_INDEX: Record<string, number> = {
   friday: 4,
 };
 
-interface ScheduleRow {
+export interface ScheduleRow {
   day: string;
   timeBlock: string;
   category: string;
