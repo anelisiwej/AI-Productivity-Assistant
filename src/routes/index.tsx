@@ -476,9 +476,9 @@ function Index() {
 
 
             {hasTasks && (
-              <TabsContent value="plan" className="flex-1 mt-5 flex flex-col gap-4 min-h-0">
-                <div id="print-schedule" className="flex-1 min-h-0 flex flex-col gap-4">
-                  <div className="flex-1 min-h-0">
+              <TabsContent value="plan" className="flex-1 mt-5 flex flex-col gap-4 min-h-0 min-w-0 max-w-full overflow-hidden">
+                <div id="print-schedule" className="flex-1 min-h-0 min-w-0 max-w-full flex flex-col gap-4">
+                  <div className="flex-1 min-h-0 min-w-0 max-w-full">
                     <OutputPane
                       title="Prioritized Weekly Schedule"
                       subtitle="Sequenced by urgency and impact"
@@ -671,7 +671,7 @@ function OutputPane({
         </div>
       </div>
 
-      <div className="flex-1 rounded-lg border border-slate-800 bg-slate-950/40 p-5 min-h-[380px]">
+      <div className="flex-1 min-w-0 max-w-full overflow-hidden rounded-lg border border-slate-800 bg-slate-950/40 p-5 min-h-[380px]">
         {loading ? (
           <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
             <div className="relative">
@@ -689,12 +689,14 @@ function OutputPane({
           </div>
         ) : content ? (
           isHtml ? (
-            <div
-              className="ai-html text-sm text-slate-200 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: sanitizePlanHtml(content) }}
-            />
+            <div className="w-full max-w-full overflow-x-auto">
+              <div
+                className="ai-html text-sm text-slate-200 leading-relaxed break-words"
+                dangerouslySetInnerHTML={{ __html: sanitizePlanHtml(content) }}
+              />
+            </div>
           ) : (
-            <pre className="whitespace-pre-wrap font-sans text-sm text-slate-200 leading-relaxed">
+            <pre className="whitespace-pre-wrap break-words font-sans text-sm text-slate-200 leading-relaxed">
               {content}
             </pre>
           )
