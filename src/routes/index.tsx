@@ -162,7 +162,9 @@ function Index() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-              <Sparkles className="h-5 w-5 text-white" />
+              <span className="text-white font-bold text-sm tracking-tight leading-none select-none">
+                CM
+              </span>
             </div>
             <div>
               <h1 className="text-base font-semibold tracking-tight">
