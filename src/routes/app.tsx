@@ -34,6 +34,7 @@ import {
   Printer,
   Calendar,
   Download,
+  Home,
 } from "lucide-react";
 import { downloadScheduleIcs, printElementById, parseScheduleRows, type ScheduleRow } from "@/lib/schedule-export";
 import {
