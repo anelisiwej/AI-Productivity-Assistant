@@ -41,7 +41,7 @@ import {
   downloadCoverLetterPdf,
 } from "@/lib/cover-letter-export";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/app")({
   component: Index,
   head: () => ({
     meta: [
